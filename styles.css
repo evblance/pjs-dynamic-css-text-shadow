@@ -1,0 +1,15 @@
+:root {
+  --ts-x-offset: 1px;
+  --ts-y-offset: 1px;
+  --ts-blur: 2px;
+  --ts-colour: rgba(30, 30, 30, 0.5);
+  --text-shadow: var(--ts-x-offset) var(--ts-y-offset) var(--ts-blur) var(--ts-colour);
+}
+
+.text {
+  left: 50%;
+  position: absolute;
+  text-shadow: var(--text-shadow);
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
