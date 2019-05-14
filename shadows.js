@@ -72,8 +72,5 @@ const X_OFFSET_VAR = 'ts-x-offset';
 const Y_OFFSET_VAR = 'ts-y-offset';
 const BLUR_VAR = 'ts-blur';
 
-// References to the DOM for manipulating element text shadow(s)
-const heading = document.getElementById('text');
-
 // Listen to mousemove events so we can make our text shadow dynamic
 document.addEventListener('mousemove', handleMouseMove);
