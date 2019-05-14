@@ -37,15 +37,40 @@ function getWindowCentre() {
 }
 
 /**
+ * Updates the text shadow direction and blur based on the relative position of the mouse and window centre.
+ * @param {Position} mousePos The Position of the mouse to use in calculating the shadow position.
+ * @param {Position} windowCentrePos The Position of the window centre to use in calculating the shadow size.
+ */
+function updateTextShadow(mousePos, windowCentrePos) {
+  // We want to cast the shadow opposite of the cursor, as it if were a light
+  const xOffset = -(mousePos.x - windowCentrePos.x) * SHADOW_SCALE;
+  const yOffset = -(mousePos.y - windowCentrePos.y) * SHADOW_SCALE;
+  
+  // Set the blur to increase with cursor distance from the text
+  const blur = Math.sqrt(Math.pow(xOffset, 2) + Math.pow(yOffset, 2)) * SHADOW_SCALE;
+
+  setCSSVariable(X_OFFSET_VAR, `${xOffset}px`);
+  setCSSVariable(Y_OFFSET_VAR, `${yOffset}px`);
+  setCSSVariable(BLUR_VAR, `${blur}px`);
+}
+
+/**
  * Handles mousemove to drive dynamic text shadow behaviour.
  * @param {any} event The client mousemove event.
  */
 function handleMouseMove(event) {
   const mousePos = getMousePositionByEvent(event);
-  console.log(`Mouse Pos: (${mousePos.x}, ${mousePos.y})`);
   const windowCentrePos = getWindowCentre();
-  console.log(`Client origin: (${windowCentrePos.x}, ${windowCentrePos.y})`);
+  updateTextShadow(mousePos, windowCentrePos);
 }
+
+// Shadow scaling factor
+const SHADOW_SCALE = 0.1;
+
+// Represent the CSS variable magic strings as constants
+const X_OFFSET_VAR = 'ts-x-offset';
+const Y_OFFSET_VAR = 'ts-y-offset';
+const BLUR_VAR = 'ts-blur';
 
 // References to the DOM for manipulating element text shadow(s)
 const heading = document.getElementById('text');
