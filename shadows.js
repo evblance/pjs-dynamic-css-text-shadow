@@ -6,3 +6,6 @@
 function setCSSVariable(name, value) {
   document.documentElement.style.setProperty(`--${name}`, value);
 }
+
+// References to the DOM for manipulating element text shadow(s)
+const heading = document.getElementById('text');
